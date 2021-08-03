@@ -82,7 +82,7 @@ jobs:
 
           echo "Creating CosmosDB database account $cosmosname (This can take awhile.)"
 
-          $acctDetails = az cosmosdb create --name $cosmosname --location $region --resource-group $gaResourceGroup --capabilities EnableServerless --tags Package=CosmosPersistence RunnerOS=${{ runner.os }} $dateTag | ConvertFrom-Json
+          $acctDetails = az cosmosdb create --name $cosmosname --location regionName=$region failoverPriority=0 isZoneRedundant=False --resource-group $gaResourceGroup --capabilities EnableServerless --tags Package=CosmosPersistence RunnerOS=${{ runner.os }} $dateTag | ConvertFrom-Json
 
           if(!$acctDetails || !$acctDetails.documentEndpoint)
           {

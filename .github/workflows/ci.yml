@@ -75,7 +75,6 @@ jobs:
           $cosmosname = "psw-cosmosdb-$($rand)"
           $storagename = "pswtables$($rand)"
 
-          echo "::set-output name=gaResourceGroup::$gaResourceGroup"
           echo "::set-output name=cosmosname::$cosmosname"
           echo "::set-output name=storagename::$storagename"
 
@@ -141,10 +140,11 @@ jobs:
         if: ${{ always() }}
         shell: pwsh
         run: |
-          $ignore = az storage account delete --resource-group ${{ steps.setup-infrastructure.outputs.gaResourceGroup }} --name ${{ steps.setup-infrastructure.outputs.storagename }} --yes
+          $gaResourceGroup = "GitHubActions-RG"
+          $ignore = az storage account delete --resource-group $gaResourceGroup --name ${{ steps.setup-infrastructure.outputs.storagename }} --yes
 
           # Use this once cosmosdb delete offers --no-wait argument, until then, it takes too long (~7m) and we use curl instead
-          #$ignore = az cosmosdb delete --resource-group ${{ steps.setup-infrastructure.outputs.gaResourceGroup }} --name ${{ steps.setup-infrastructure.outputs.cosmosname }} --yes
+          #$ignore = az cosmosdb delete --resource-group $gaResourceGroup --name ${{ steps.setup-infrastructure.outputs.cosmosname }} --yes
 
           # curl-based method
           $credentials = '${{ secrets.AZURE_ACI_CREDENTIALS }}' | ConvertFrom-Json

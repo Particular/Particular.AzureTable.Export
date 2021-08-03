@@ -70,15 +70,69 @@ jobs:
           # Retrieve the Azure region in which this workflow is running. This region should be used to create addtional resources.
           $hostInfo = curl -H Metadata:true "169.254.169.254/metadata/instance?api-version=2017-08-01" | ConvertFrom-Json
           $region = $hostInfo.compute.location
+          $gaResourceGroup = "GitHubActions-RG"
+          $rand = Get-Random
+          $cosmosname = "psw-cosmosdb-$($rand)"
+          $storagename = "pswtables$($rand)"
 
-          # Provide a PowerShell script that will initialize dependent infrastructure. Use the GitHubActions-RG resource group for all resources.
-          # Check for error conditions and ensure that the dependent infrastructure is available and running before moving to the next step.
-          # Output parameters can be set for future steps to use by using the echo ::set-output name=key::value command.
+          echo "::set-output name=cosmosname::$cosmosname"
+          echo "::set-output name=storagename::$storagename"
+
+          $dateTag = "Created=$(Get-Date -Format "yyyy-MM-dd")"
+
+          echo "Creating CosmosDB database account $cosmosname (This can take awhile.)"
+
+          $acctDetails = az cosmosdb create --name $cosmosname --location $region --resource-group $gaResourceGroup --capabilities EnableServerless --tags Package=CosmosPersistence RunnerOS=${{ runner.os }} $dateTag | ConvertFrom-Json
+          $documentEndpoint = $acctDetails.documentEndpoint
+
+          echo "::add-mask::$documentEndpoint"
+          echo "Getting CosmosDB access keys"
+
+          $keyDetails = az cosmosdb keys list --name $cosmosname --resource-group $gaResourceGroup | ConvertFrom-Json
+          $cosmosKey = $keyDetails.primaryMasterKey
+
+          echo "::add-mask::$cosmosKey"
+          echo "Creating CosmosDB SQL Database "
+
+          $dbDetails = az cosmosdb sql database create --name CosmosDBPersistence --account-name $cosmosname --resource-group $gaResourceGroup | ConvertFrom-Json
+
+          echo "Creating storage account for NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests (This can take awhile.)"
+
+          $storageDetails = az storage account create --name $storagename --location $region --resource-group $gaResourceGroup --sku Standard_LRS | ConvertFrom-Json
+
+          echo "Getting storage account keys"
+
+          $storageKeyDetails = az storage account keys list --account-name $storagename --resource-group $gaResourceGroup | ConvertFrom-Json
+          $storageKey = $storageKeyDetails[0].value
+
+          echo "::add-mask::$storageKey"
+
+          $storageConnectString = "DefaultEndpointsProtocol=https;AccountName=$storagename;AccountKey=$storageKey"
+
+          echo "Tagging storage account"
+
+          $ignore = az tag create --resource-id $storageDetails.id --tags Package=CosmosPersistence RunnerOS=${{ runner.os }} $dateTag
+
+          echo "CosmosDBPersistence_ConnectionString=AccountEndpoint=$($documentEndpoint);AccountKey=$($cosmosKey);" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+          echo "AzureStoragePersistence_ConnectionString=$storageConnectString" | Out-File -FilePath $Env:GITHUB_ENV -Encoding utf-8 -Append
+
+          # Extra details for teardown
+          echo "::add-mask::$($acctDetails.id)"
+          echo "::set-output name=comsosAccountId::$($acctDetails.id)"
       - name: Run tests
         uses: Particular/run-tests-action@v1.0.0
       - name: Teardown infrastructure
         if: ${{ always() }}
         shell: pwsh
         run: |
-          # Provide a PowerShell script that will shutdown/clean up any dependent infrastructure that has been set up.
-          # Any output parameters specified in the setup stage can be accessed by using {{steps.setup-infrastructure.outputs.key}}
+          $ignore = az storage account delete --resource-group $gaResourceGroup --name ${{ steps.setup-infrastructure.outputs.storagename }} --yes
+
+          # Use this once cosmosdb delete offers --no-wait argument, until then, it takes too long (~7m) and we use curl instead
+          #$ignore = az cosmosdb delete --resource-group $gaResourceGroup --name ${{ steps.setup-infrastructure.outputs.cosmosname }} --yes
+
+          # curl-based method
+          $credentials = '${{ secrets.AZURE_ACI_CREDENTIALS }}' | ConvertFrom-Json
+          $token = curl -X POST -d "grant_type=client_credentials&client_id=$($credentials.clientId)&client_secret=$($credentials.clientSecret)&resource=https%3A%2F%2Fmanagement.azure.com%2F" https://login.microsoftonline.com/$($credentials.tenantId)/oauth2/token | ConvertFrom-Json
+          $authHeader = "Authorization: Bearer $($token.access_token)"
+          $resourceUrl = "https://management.azure.com${{ steps.setup-infrastructure.outputs.comsosAccountId }}?api-version=2021-04-15"
+          curl -X DELETE $resourceUrl -H $authHeader -H "Content-Type: application/json" --silent

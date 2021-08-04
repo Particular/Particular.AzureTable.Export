@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests
+﻿namespace Particular.AzureTable.Export.AzureStorageSagaExporter.AcceptanceTests
 {
     using System;
     using System.IO;
@@ -15,7 +15,7 @@
         [SetUp]
         public virtual Task SetUp()
         {
-            AcceptanceTesting.Customization.Conventions.EndpointNamingConvention = t =>
+            NServiceBus.AcceptanceTesting.Customization.Conventions.EndpointNamingConvention = t =>
             {
                 var classAndEndpoint = t.FullName.Split('.').Last();
 

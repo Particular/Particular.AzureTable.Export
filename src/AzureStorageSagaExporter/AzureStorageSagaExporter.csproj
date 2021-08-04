@@ -14,7 +14,7 @@
     <Description>Tool to export NServiceBus persistence data from Azure Table for import into Cosmos DB</Description>
     <ToolCommandName>particular-azuretable-export</ToolCommandName>
     <PackAsTool>True</PackAsTool>
-    <RootNamespace>NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter</RootNamespace>
+    <RootNamespace>Particular.AzureTable.Export.AzureStorageSagaExporter</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

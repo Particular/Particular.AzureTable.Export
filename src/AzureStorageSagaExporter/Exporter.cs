@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter
+﻿namespace Particular.AzureTable.Export.AzureStorageSagaExporter
 {
     using System;
     using System.Collections.Generic;
@@ -12,7 +12,6 @@
     using Microsoft.Extensions.Logging;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using CosmosDB;
 
     public static class Exporter
     {

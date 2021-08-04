@@ -5,8 +5,12 @@
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Test.snk</AssemblyOriginatorKeyFile>
-    <RootNamespace>NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests</RootNamespace>
+    <RootNamespace>Particular.AzureTable.Export.AzureStorageSagaExporter.AcceptanceTests</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\AzureStorageSagaExporter\CosmosSagaIdGenerator.cs" Link="CosmosSagaIdGenerator.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GitHubActionsTestLogger" Version="1.2.0" />
@@ -14,6 +18,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0" />
     <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="3.1.0" />
     <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="1.0.0" />
+    <PackageReference Include="Particular.AzureTable.Export" Version="1.0.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="Nunit" Version="3.13.2" />
     <PackageReference Include="NServiceBus.AcceptanceTesting" Version="7.5.0" />

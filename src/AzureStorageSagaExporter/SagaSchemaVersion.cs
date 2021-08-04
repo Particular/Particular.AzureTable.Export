@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB
+﻿namespace Particular.AzureTable.Export
 {
     static class SagaSchemaVersion
     {

@@ -1,4 +1,4 @@
-﻿namespace Particular.AzureTable.Export.AzureStorageSagaExporter
+﻿namespace AzureStorageSagaExporter
 {
     using System.Collections.Generic;
     using System.Runtime.CompilerServices;

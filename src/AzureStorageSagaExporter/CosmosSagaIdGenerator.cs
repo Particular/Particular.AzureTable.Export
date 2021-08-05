@@ -1,4 +1,4 @@
-﻿namespace Particular.AzureTable.Export
+﻿namespace AzureStorageSagaExporter
 {
     using System;
     using System.Security.Cryptography;

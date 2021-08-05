@@ -7,6 +7,7 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using global::AzureStorageSagaExporter;
     using Microsoft.Azure.Cosmos;
     using Microsoft.Azure.Cosmos.Table;
     using NServiceBus;

@@ -1,4 +1,4 @@
-﻿namespace Particular.AzureTable.Export
+﻿namespace AzureStorageSagaExporter
 {
     static partial class MetadataExtensions
     {

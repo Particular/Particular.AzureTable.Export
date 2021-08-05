@@ -5,7 +5,7 @@
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Test.snk</AssemblyOriginatorKeyFile>
-    <RootNamespace>Particular.AzureTable.Export.AzureStorageSagaExporter.AcceptanceTests</RootNamespace>
+    <RootNamespace>AzureStorageSagaExporter.AzureTable.AcceptanceTests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

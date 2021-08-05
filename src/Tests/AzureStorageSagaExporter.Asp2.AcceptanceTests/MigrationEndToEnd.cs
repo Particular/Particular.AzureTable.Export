@@ -1,4 +1,4 @@
-﻿namespace Particular.AzureTable.Export.AzureStorageSagaExporter.AcceptanceTests
+﻿namespace AzureStorageSagaExporter.Asp2.AcceptanceTests
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using global::AzureStorageSagaExporter;
+    using AzureStorageSagaExporter;
     using Microsoft.Azure.Cosmos;
     using Microsoft.Azure.Cosmos.Table;
     using NServiceBus;

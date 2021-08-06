@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter
+﻿namespace AzureStorageSagaExporter
 {
     using System;
     using System.Linq;

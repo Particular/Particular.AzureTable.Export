@@ -1,9 +1,9 @@
-﻿namespace NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests
+﻿namespace AzureStorageSagaExporter.AzureTable3.AcceptanceTests
 {
     using NServiceBus;
     using NServiceBus.AcceptanceTesting.Support;
-    using Configuration.AdvancedExtensibility;
-    using ObjectBuilder;
+    using NServiceBus.Configuration.AdvancedExtensibility;
+    using NServiceBus.ObjectBuilder;
 
     public static class EndpointConfigurationExtensions
     {

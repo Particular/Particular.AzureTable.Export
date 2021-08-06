@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB
+﻿namespace AzureStorageSagaExporter
 {
     using System;
     using System.Security.Cryptography;

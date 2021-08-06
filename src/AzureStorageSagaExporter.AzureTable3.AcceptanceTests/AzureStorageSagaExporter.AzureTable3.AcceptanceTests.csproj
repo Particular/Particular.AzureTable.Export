@@ -5,8 +5,12 @@
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Test.snk</AssemblyOriginatorKeyFile>
-    <RootNamespace>NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests</RootNamespace>
+    <RootNamespace>AzureStorageSagaExporter.AzureTable3.AcceptanceTests</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\AzureStorageSagaExporter\CosmosSagaIdGenerator.cs" Link="CosmosSagaIdGenerator.cs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GitHubActionsTestLogger" Version="1.2.0" />
@@ -21,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\AzureStorageSagaExporter\AzureStorageSagaExporter.csproj" />
+    <ProjectReference Include="..\AzureStorageSagaExporter\AzureStorageSagaExporter.csproj" />
   </ItemGroup>
 
 </Project>

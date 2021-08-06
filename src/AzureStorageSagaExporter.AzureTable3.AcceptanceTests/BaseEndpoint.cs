@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests
+﻿namespace AzureStorageSagaExporter.AzureTable3.AcceptanceTests
 {
     using NServiceBus;
     using NServiceBus.AcceptanceTesting.Support;

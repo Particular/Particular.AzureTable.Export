@@ -1,4 +1,4 @@
-﻿namespace NServiceBus.Persistence.CosmosDB
+﻿namespace AzureStorageSagaExporter
 {
     static partial class MetadataExtensions
     {

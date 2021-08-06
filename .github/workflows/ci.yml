@@ -1,4 +1,3 @@
-# Rename this file to ci.yml while the template is being added.
 name: CI
 on:
   push:
@@ -6,6 +5,7 @@ on:
       - master
       - release-*
   pull_request:
+  pull_request_target:
   workflow_dispatch:
 env:
   DOTNET_NOLOGO: true

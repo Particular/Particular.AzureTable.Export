@@ -1,4 +1,4 @@
-﻿namespace AzureStorageSagaExporter.Asp2.AcceptanceTests
+﻿namespace AzureStorageSagaExporter.AzureStorage2.AcceptanceTests
 {
     using NServiceBus;
     using NServiceBus.AcceptanceTesting.Support;

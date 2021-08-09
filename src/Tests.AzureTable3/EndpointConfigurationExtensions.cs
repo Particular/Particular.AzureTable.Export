@@ -1,4 +1,4 @@
-﻿namespace AzureStorageSagaExporter.AzureTable3.AcceptanceTests
+﻿namespace Tests.AzureTable3
 {
     using NServiceBus;
     using NServiceBus.AcceptanceTesting.Support;

@@ -1,9 +1,9 @@
-﻿namespace AzureStorageSagaExporter.AzureTable3.AcceptanceTests
+﻿namespace Tests.AzureStorage2
 {
-    using NServiceBus;
-    using NServiceBus.AcceptanceTesting.Support;
     using System;
     using System.Threading.Tasks;
+    using NServiceBus;
+    using NServiceBus.AcceptanceTesting.Support;
 
     public class BaseEndpoint : IEndpointSetupTemplate
     {

@@ -14,12 +14,12 @@
 
     public class ToolVersion
     {
-        const string PackageID = "Particular.Asp.Export";
-        const string FeedUri = "https://www.myget.org/F/particular/api/v3/index.json";
+        const string PackageID = "Particular.AzureTable.Export";
+        const string FeedUri = "https://api.nuget.org/v3/index.json";
 
         public static string GetVersionInfo()
         {
-            return $"export-aspsagas {GitVersionInformation.NuGetVersionV2} (Sha:{GitVersionInformation.ShortSha})";
+            return $"Particular.AzureTable.Export {GitVersionInformation.NuGetVersionV2} (Sha:{GitVersionInformation.ShortSha})";
         }
 
         public static async Task<bool> CheckIsLatestVersion(ILogger logger, bool ignoreUpdates, CancellationToken cancellationToken = default)
@@ -44,7 +44,7 @@
 
                     log($"*** New version detected: {packageVersion}");
                     log("*** Update to the latest version using the following command:");
-                    log($"***   dotnet tool update --tool-path <installation-path> {PackageID} --add-source {FeedUri} --version {packageVersion}");
+                    log($"***   dotnet tool update --tool-path <installation-path> {PackageID} --version {packageVersion}");
 
                     return ignoreUpdates;
 
@@ -63,7 +63,7 @@
             }
             catch (Exception e)
             {
-                logger.LogWarning("*** Unable to connect to MyGet to check for latest version.");
+                logger.LogWarning("*** Unable to connect to NuGet to check for latest version.");
                 logger.LogWarning($"*** Message: {e.Message}");
             }
 

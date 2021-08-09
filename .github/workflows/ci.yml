@@ -110,7 +110,7 @@ jobs:
 
           $dbDetails = az cosmosdb sql database create --name CosmosDBPersistence --account-name $cosmosname --resource-group $gaResourceGroup | ConvertFrom-Json
 
-          echo "Creating storage account for NServiceBus.Persistence.CosmosDB.AzureStorageSagaExporter.AcceptanceTests (This can take awhile.)"
+          echo "Creating storage account for Particular.AzureTable.Export.AzureStorage2.AcceptanceTests (This can take awhile.)"
 
           $storageDetails = az storage account create --name $storagename --location $region --resource-group $gaResourceGroup --sku Standard_LRS | ConvertFrom-Json
 

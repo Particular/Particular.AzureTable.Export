@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureStorageSagaExporter", "AzureStorageSagaExporter\AzureStorageSagaExporter.csproj", "{5ACAB211-F966-48DC-B436-FED2A4EBEC38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Particular.AzureTable.Export", "Particular.AzureTable.Export\Particular.AzureTable.Export.csproj", "{5ACAB211-F966-48DC-B436-FED2A4EBEC38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSagaExporter.AzureStorage2.AcceptanceTests", "AzureStorageSagaExporter.AzureStorage2.AcceptanceTests\AzureStorageSagaExporter.AzureStorage2.AcceptanceTests.csproj", "{1BB66E2F-0BCF-4A0C-B2B0-556874A1A5AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Particular.AzureTable.Export.AzureStorage2.AcceptanceTests", "Particular.AzureTable.Export.AzureStorage2.AcceptanceTests\Particular.AzureTable.Export.AzureStorage2.AcceptanceTests.csproj", "{1BB66E2F-0BCF-4A0C-B2B0-556874A1A5AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSagaExporter.AzureTable3.AcceptanceTests", "AzureStorageSagaExporter.AzureTable3.AcceptanceTests\AzureStorageSagaExporter.AzureTable3.AcceptanceTests.csproj", "{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Particular.AzureTable.Export.AzureTable3.AcceptanceTests", "Particular.AzureTable.Export.AzureTable3.AcceptanceTests\Particular.AzureTable.Export.AzureTable3.AcceptanceTests.csproj", "{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,4 +1,4 @@
-﻿namespace AzureStorageSagaExporter
+﻿namespace Particular.AzureTable.Export
 {
     using System;
     using Microsoft.Extensions.Logging;

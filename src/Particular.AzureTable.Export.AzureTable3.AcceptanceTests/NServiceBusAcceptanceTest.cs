@@ -1,4 +1,4 @@
-﻿namespace AzureStorageSagaExporter.AzureTable3.AcceptanceTests
+﻿namespace Particular.AzureTable.Export.AzureTable3.AcceptanceTests
 {
     using System;
     using System.IO;

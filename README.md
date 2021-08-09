@@ -1,11 +1,12 @@
 # Particular.AzureTable.Export
-A tool to extract saga data from NServiceBus.Persistence.AzureStorage for import into NServiceBus.Persistence.CosmosDB
+
+A tool to export data from NServiceBus.Persistence.AzureTable for import into NServiceBus.Persistence.CosmosDB.
 
 ## Running tests locally
 
 All test projects use NUnit. The test projects can be executed using the test runner included with Visual Studio or by using the [`dotnet test` command](https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test) from the command line.
 
-The `AzureStorageSagaExporter.AcceptanceTests` projects require access to Azure Table Storage and Cosmos DB for tests to pass.
+The `AcceptanceTests` projects require access to Azure Table Storage and Cosmos DB for tests to pass.
 
 ### Azure Storage emulator set up
 

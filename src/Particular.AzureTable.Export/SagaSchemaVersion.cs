@@ -1,4 +1,4 @@
-﻿namespace AzureStorageSagaExporter
+﻿namespace Particular.AzureTable.Export
 {
     static class SagaSchemaVersion
     {

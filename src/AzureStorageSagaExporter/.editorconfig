@@ -2,6 +2,6 @@
 
 # Justification: Test project
 dotnet_diagnostic.CA2007.severity = none
-dotnet_diagnostic.CA2016.severity=silent
-dotnet_diagnostic.PS0019.severity=silent
-dotnet_diagnostic.PS0018.severity=silent
+dotnet_diagnostic.CA2016.severity = silent
+dotnet_diagnostic.PS0019.severity = silent
+dotnet_diagnostic.PS0018.severity = silent

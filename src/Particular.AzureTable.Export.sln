@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AzureStorage2", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AzureTable3", "Tests.AzureTable3\Tests.AzureTable3.csproj", "{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AzureTable4", "Tests.AzureTable4\Tests.AzureTable4.csproj", "{B13F84C4-20EA-4933-A5EA-06C0F2482420}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,30 @@ Global
 		{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}.Release|x64.Build.0 = Release|Any CPU
 		{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}.Release|x86.ActiveCfg = Release|Any CPU
 		{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}.Release|x86.Build.0 = Release|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x64.Build.0 = Debug|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x86.Build.0 = Debug|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x64.ActiveCfg = Release|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x64.Build.0 = Release|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x86.ActiveCfg = Release|Any CPU
+		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x86.Build.0 = Release|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|x64.Build.0 = Debug|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|x86.Build.0 = Debug|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Release|x64.ActiveCfg = Release|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Release|x64.Build.0 = Release|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Release|x86.ActiveCfg = Release|Any CPU
+		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

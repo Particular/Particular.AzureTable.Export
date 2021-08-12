@@ -1,4 +1,4 @@
-﻿namespace Tests.AzureTable3
+﻿namespace Tests.AzureTable4
 {
     using System;
     using System.Collections.Generic;
@@ -11,7 +11,6 @@
     using Microsoft.Azure.Cosmos.Table;
     using NServiceBus;
     using NServiceBus.AcceptanceTesting;
-    using NServiceBus.AcceptanceTesting.Customization;
     using NUnit.Framework;
     using Particular.Approvals;
     using Particular.AzureTable.Export;
@@ -24,7 +23,7 @@
             var account = CloudStorageAccount.Parse(AzureStoragePersistenceConnectionString);
             var client = account.CreateCloudTableClient();
 
-            table = client.GetTableReference(nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData));
+            table = client.GetTableReference(nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData));
 
             await table.CreateIfNotExistsAsync();
 
@@ -46,9 +45,6 @@
             var testContext = await Scenario.Define<Context>(c => c.MyId = Guid.NewGuid())
                 .WithEndpoint<MigratingEndpoint>(b => b.CustomConfig(ec =>
                 {
-                    var routing = ec.ConfigureTransport().Routing();
-                    routing.RouteToEndpoint(typeof(CompleteSagaRequest), typeof(SomeOtherEndpoint));
-
                     var persistence = ec.UsePersistence<AzureTablePersistence>();
                     persistence.ConnectionString(AzureStoragePersistenceConnectionString);
                 }).When((s, c) => s.SendLocal(new StartSaga
@@ -59,7 +55,7 @@
                 .Run();
 
             // Act
-            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), workingDir, CancellationToken.None);
+            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData), workingDir, CancellationToken.None);
 
             var filePath = DetermineAndVerifyExport(testContext);
             await ImportIntoCosmosDB(filePath);
@@ -68,15 +64,11 @@
             testContext = await Scenario.Define<Context>(c => c.MyId = testContext.MyId)
                 .WithEndpoint<MigratingEndpoint>(b => b.CustomConfig(ec =>
                 {
-                    var routing = ec.ConfigureTransport().Routing();
-                    routing.RouteToEndpoint(typeof(CompleteSagaRequest), typeof(SomeOtherEndpoint));
-
                     var persistence = ec.UsePersistence<CosmosPersistence>();
                     persistence.CosmosClient(CosmosClient);
                     persistence.DatabaseName(DatabaseName);
                     persistence.DefaultContainer(ContainerName, PartitionPathKey);
                 }))
-                .WithEndpoint<SomeOtherEndpoint>()
                 .Done(ctx => ctx.CompleteSagaResponseReceived)
                 .Run();
 
@@ -88,9 +80,9 @@
 
         string DetermineAndVerifyExport(Context testContext)
         {
-            var newId = CosmosSagaIdGenerator.Generate(typeof(MigratingEndpoint.MigratingFromAzureTable3SagaData).FullName, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData.MyId), testContext.MyId.ToString());
+            var newId = CosmosSagaIdGenerator.Generate(typeof(MigratingEndpoint.MigratingFromAzureTable4SagaData).FullName, nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData.MyId), testContext.MyId.ToString());
 
-            var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), $"{newId}.json");
+            var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData), $"{newId}.json");
 
             Assert.IsTrue(File.Exists(filePath), "File exported");
             return filePath;
@@ -118,7 +110,7 @@
             public bool CompleteSagaRequestSent { get; set; }
             public bool CompleteSagaResponseReceived { get; set; }
 
-            public MigratingEndpoint.MigratingFromAzureTable3SagaData FromAsp3SagaData { get; set; }
+            public MigratingEndpoint.MigratingFromAzureTable4SagaData FromAsp3SagaData { get; set; }
             public Guid MyId { get; internal set; }
         }
 
@@ -129,9 +121,9 @@
                 EndpointSetup<BaseEndpoint>();
             }
 
-            public class MigratingSaga : Saga<MigratingFromAzureTable3SagaData>,
+            public class MigratingSaga : Saga<MigratingFromAzureTable4SagaData>,
                 IAmStartedByMessages<StartSaga>,
-                IHandleMessages<CompleteSagaResponse>
+                IHandleMessages<CompleteSagaRequest>
             {
                 public MigratingSaga(Context testContext)
                 {
@@ -158,10 +150,13 @@
                     Data.Status = Status.Failed;
 
                     testContext.CompleteSagaRequestSent = true;
-                    await context.Send(new CompleteSagaRequest());
+                    await context.SendLocal(new CompleteSagaRequest()
+                    {
+                        MyId = message.MyId
+                    });
                 }
 
-                public Task Handle(CompleteSagaResponse message, IMessageHandlerContext context)
+                public Task Handle(CompleteSagaRequest message, IMessageHandlerContext context)
                 {
                     testContext.FromAsp3SagaData = Data;
                     testContext.CompleteSagaResponseReceived = true;
@@ -170,15 +165,16 @@
                     return Task.CompletedTask;
                 }
 
-                protected override void ConfigureHowToFindSaga(SagaPropertyMapper<MigratingFromAzureTable3SagaData> mapper)
+                protected override void ConfigureHowToFindSaga(SagaPropertyMapper<MigratingFromAzureTable4SagaData> mapper)
                 {
                     mapper.ConfigureMapping<StartSaga>(msg => msg.MyId).ToSaga(saga => saga.MyId);
+                    mapper.ConfigureMapping<CompleteSagaRequest>(msg => msg.MyId).ToSaga(saga => saga.MyId);
                 }
 
                 readonly Context testContext;
             }
 
-            public class MigratingFromAzureTable3SagaData : ContainSagaData
+            public class MigratingFromAzureTable4SagaData : ContainSagaData
             {
                 public Guid MyId { get; set; }
                 public List<string> ListOfStrings { get; set; }
@@ -211,33 +207,14 @@
             }
         }
 
-        public class SomeOtherEndpoint : EndpointConfigurationBuilder
-        {
-            public SomeOtherEndpoint()
-            {
-                EndpointSetup<BaseEndpoint>(c => c.UsePersistence<InMemoryPersistence>());
-            }
-
-            public class CompleteSagaRequestHandler : IHandleMessages<CompleteSagaRequest>
-            {
-                public Task Handle(CompleteSagaRequest message, IMessageHandlerContext context)
-                {
-                    return context.Reply(new CompleteSagaResponse());
-                }
-            }
-        }
-
         public class StartSaga : ICommand
         {
             public Guid MyId { get; set; }
         }
 
-        public class CompleteSagaRequest : IMessage
+        public class CompleteSagaRequest : ICommand
         {
-        }
-
-        public class CompleteSagaResponse : IMessage
-        {
+            public Guid MyId { get; set; }
         }
     }
 }

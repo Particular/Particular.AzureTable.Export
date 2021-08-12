@@ -24,7 +24,7 @@
             var account = CloudStorageAccount.Parse(AzureStoragePersistenceConnectionString);
             var client = account.CreateCloudTableClient();
 
-            table = client.GetTableReference(nameof(MigratingEndpoint.MigratingFromAsp3SagaData));
+            table = client.GetTableReference(nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData));
 
             await table.CreateIfNotExistsAsync();
 
@@ -59,7 +59,7 @@
                 .Run();
 
             // Act
-            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, nameof(MigratingEndpoint.MigratingFromAsp3SagaData), workingDir, CancellationToken.None);
+            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), workingDir, CancellationToken.None);
 
             var filePath = DetermineAndVerifyExport(testContext);
             await ImportIntoCosmosDB(filePath);
@@ -88,9 +88,9 @@
 
         string DetermineAndVerifyExport(Context testContext)
         {
-            var newId = CosmosSagaIdGenerator.Generate(typeof(MigratingEndpoint.MigratingFromAsp3SagaData).FullName, nameof(MigratingEndpoint.MigratingFromAsp3SagaData.MyId), testContext.MyId.ToString());
+            var newId = CosmosSagaIdGenerator.Generate(typeof(MigratingEndpoint.MigratingFromAzureTable3SagaData).FullName, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData.MyId), testContext.MyId.ToString());
 
-            var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAsp3SagaData), $"{newId}.json");
+            var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), $"{newId}.json");
 
             Assert.IsTrue(File.Exists(filePath), "File exported");
             return filePath;
@@ -118,7 +118,7 @@
             public bool CompleteSagaRequestSent { get; set; }
             public bool CompleteSagaResponseReceived { get; set; }
 
-            public MigratingEndpoint.MigratingFromAsp3SagaData FromAsp3SagaData { get; set; }
+            public MigratingEndpoint.MigratingFromAzureTable3SagaData FromAsp3SagaData { get; set; }
             public Guid MyId { get; internal set; }
         }
 
@@ -129,7 +129,7 @@
                 EndpointSetup<BaseEndpoint>();
             }
 
-            public class MigratingSaga : Saga<MigratingFromAsp3SagaData>,
+            public class MigratingSaga : Saga<MigratingFromAzureTable3SagaData>,
                 IAmStartedByMessages<StartSaga>,
                 IHandleMessages<CompleteSagaResponse>
             {
@@ -170,7 +170,7 @@
                     return Task.CompletedTask;
                 }
 
-                protected override void ConfigureHowToFindSaga(SagaPropertyMapper<MigratingFromAsp3SagaData> mapper)
+                protected override void ConfigureHowToFindSaga(SagaPropertyMapper<MigratingFromAzureTable3SagaData> mapper)
                 {
                     mapper.ConfigureMapping<StartSaga>(msg => msg.MyId).ToSaga(saga => saga.MyId);
                 }
@@ -178,7 +178,7 @@
                 readonly Context testContext;
             }
 
-            public class MigratingFromAsp3SagaData : ContainSagaData
+            public class MigratingFromAzureTable3SagaData : ContainSagaData
             {
                 public Guid MyId { get; set; }
                 public List<string> ListOfStrings { get; set; }

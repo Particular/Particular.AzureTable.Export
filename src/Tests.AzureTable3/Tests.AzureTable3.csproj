@@ -16,7 +16,7 @@
     <PackageReference Include="GitHubActionsTestLogger" Version="1.2.0" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.20.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
-    <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="3.1.0" />
+    <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="4.0.0-alpha.379" />
     <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="1.0.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
     <PackageReference Include="Nunit" Version="3.13.2" />

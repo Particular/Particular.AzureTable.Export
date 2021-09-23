@@ -155,10 +155,15 @@
                     Data.Status = Status.Failed;
 
                     testContext.CompleteSagaRequestSent = true;
-                    await context.SendLocal(new CompleteSagaRequest()
+
+                    var sendOptions = new SendOptions();
+                    sendOptions.RouteToThisEndpoint();
+                    sendOptions.DelayDeliveryWith(TimeSpan.FromSeconds(2));
+
+                    await context.Send(new CompleteSagaRequest()
                     {
                         MyId = message.MyId
-                    });
+                    }, sendOptions);
                 }
 
                 public Task Handle(CompleteSagaRequest message, IMessageHandlerContext context)

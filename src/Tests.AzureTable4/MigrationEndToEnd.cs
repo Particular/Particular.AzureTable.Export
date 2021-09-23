@@ -61,7 +61,11 @@
             await ImportIntoCosmosDB(filePath);
 
             // Assert
-            testContext = await Scenario.Define<Context>(c => c.MyId = testContext.MyId)
+            testContext = await Scenario.Define<Context>(c =>
+                {
+                    c.MyId = testContext.MyId;
+                    c.MigrationComplete = true;
+                })
                 .WithEndpoint<MigratingEndpoint>(b => b.CustomConfig(ec =>
                 {
                     var persistence = ec.UsePersistence<CosmosPersistence>();
@@ -112,6 +116,7 @@
 
             public MigratingEndpoint.MigratingFromAzureTable4SagaData FromAsp3SagaData { get; set; }
             public Guid MyId { get; internal set; }
+            public bool MigrationComplete { get; set; }
         }
 
         public class MigratingEndpoint : EndpointConfigurationBuilder
@@ -150,14 +155,23 @@
                     Data.Status = Status.Failed;
 
                     testContext.CompleteSagaRequestSent = true;
-                    await context.SendLocal(new CompleteSagaRequest()
+
+                    var sendOptions = new SendOptions();
+                    sendOptions.RouteToThisEndpoint();
+                    sendOptions.DelayDeliveryWith(TimeSpan.FromSeconds(2));
+
+                    await context.Send(new CompleteSagaRequest()
                     {
                         MyId = message.MyId
-                    });
+                    }, sendOptions);
                 }
 
                 public Task Handle(CompleteSagaRequest message, IMessageHandlerContext context)
                 {
+                    if (!testContext.MigrationComplete)
+                    {
+                        throw new Exception("Cannot complete saga before migration");
+                    }
                     testContext.FromAsp3SagaData = Data;
                     testContext.CompleteSagaResponseReceived = true;
 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1;net6.0</TargetFramework>
+    <TargetFrameworks>netcoreapp3.1;net6.0</TargetFrameworks>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <LangVersion>8.0</LangVersion>
     <SignAssembly>true</SignAssembly>

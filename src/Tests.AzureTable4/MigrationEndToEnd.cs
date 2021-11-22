@@ -15,6 +15,15 @@
     using Particular.Approvals;
     using Particular.AzureTable.Export;
 
+    /*
+     *  The test creates saga data in Azure Storage, then exports to a file in a working directory using the tool,
+     *  then imports those files into Cosmos DB, then verifies that the data arrived correctly. The test is only
+     *  run on the latest version of .NET because otherwise the Arrange step (setting up the data in Azure Storage)
+     *  would be repeated for each test run. The first test run would succeed, and then attempt to delete the source
+     *  table asynchronously. The second test run would likely not be able to create the table, because the delete
+     *  would not have finished yet. We also can't orchestrate one run to set up the data, since constructs like
+     *  [OneTimeSetUp] will run on every test run.
+     */
     class MigrationEndToEnd : NServiceBusAcceptanceTest
     {
         [SetUp]
@@ -23,8 +32,7 @@
             var account = CloudStorageAccount.Parse(AzureStoragePersistenceConnectionString);
             var client = account.CreateCloudTableClient();
 
-            var tableName = Guid.NewGuid().ToString("N"); // No dashes
-            table = client.GetTableReference(tableName);
+            table = client.GetTableReference(nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData));
 
             await table.CreateIfNotExistsAsync();
 
@@ -56,7 +64,7 @@
                 .Run();
 
             // Act
-            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, table.Name, workingDir, CancellationToken.None);
+            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData), workingDir, CancellationToken.None);
 
             var filePath = DetermineAndVerifyExport(testContext);
             await ImportIntoCosmosDB(filePath);
@@ -87,7 +95,7 @@
         {
             var newId = CosmosSagaIdGenerator.Generate(typeof(MigratingEndpoint.MigratingFromAzureTable4SagaData).FullName, nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData.MyId), testContext.MyId.ToString());
 
-            var filePath = Path.Combine(workingDir, table.Name, $"{newId}.json");
+            var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAzureTable4SagaData), $"{newId}.json");
 
             Assert.IsTrue(File.Exists(filePath), "File exported");
             return filePath;

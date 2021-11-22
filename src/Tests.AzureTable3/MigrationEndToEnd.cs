@@ -24,7 +24,8 @@
             var account = CloudStorageAccount.Parse(AzureStoragePersistenceConnectionString);
             var client = account.CreateCloudTableClient();
 
-            table = client.GetTableReference(nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData));
+            var tableName = Guid.NewGuid().ToString("N"); // No dashes
+            table = client.GetTableReference(tableName);
 
             await table.CreateIfNotExistsAsync();
 
@@ -59,7 +60,7 @@
                 .Run();
 
             // Act
-            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), workingDir, CancellationToken.None);
+            await Exporter.Run(new ConsoleLogger(true), AzureStoragePersistenceConnectionString, table.Name, workingDir, CancellationToken.None);
 
             var filePath = DetermineAndVerifyExport(testContext);
             await ImportIntoCosmosDB(filePath);
@@ -90,7 +91,7 @@
         {
             var newId = CosmosSagaIdGenerator.Generate(typeof(MigratingEndpoint.MigratingFromAzureTable3SagaData).FullName, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData.MyId), testContext.MyId.ToString());
 
-            var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), $"{newId}.json");
+            var filePath = Path.Combine(workingDir, table.Name, $"{newId}.json");
 
             Assert.IsTrue(File.Exists(filePath), "File exported");
             return filePath;

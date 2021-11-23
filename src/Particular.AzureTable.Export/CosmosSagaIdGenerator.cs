@@ -21,9 +21,9 @@
         {
             var stringBytes = Encoding.UTF8.GetBytes(src);
 
-            using (var sha1CryptoServiceProvider = new SHA1CryptoServiceProvider())
+            using (var sha1 = SHA1.Create())
             {
-                var hashedBytes = sha1CryptoServiceProvider.ComputeHash(stringBytes);
+                var hashedBytes = sha1.ComputeHash(stringBytes);
                 Array.Resize(ref hashedBytes, 16);
                 return new Guid(hashedBytes);
             }

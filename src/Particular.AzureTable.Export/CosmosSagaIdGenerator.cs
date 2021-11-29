@@ -21,7 +21,7 @@
         {
             var stringBytes = Encoding.UTF8.GetBytes(src);
 
-            using (var sha1 = new SHA1.Create())
+            using (var sha1 = SHA1.Create())
             {
                 var hashedBytes = sha1.ComputeHash(stringBytes);
                 Array.Resize(ref hashedBytes, 16);

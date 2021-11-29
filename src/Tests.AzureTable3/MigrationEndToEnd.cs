@@ -15,7 +15,7 @@
     using NUnit.Framework;
     using Particular.Approvals;
     using Particular.AzureTable.Export;
-    
+
     /*
      *  The test creates saga data in Azure Storage, then exports to a file in a working directory using the tool,
      *  then imports those files into Cosmos DB, then verifies that the data arrived correctly. The test is only

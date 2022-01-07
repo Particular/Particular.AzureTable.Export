@@ -75,4 +75,4 @@ jobs:
           connection-string-name: AzureStoragePersistence_ConnectionString
           tag: AspExport
       - name: Run tests
-        uses: Particular/run-tests-action@v1.0.0
+        uses: Particular/run-tests-action@v1.1.0

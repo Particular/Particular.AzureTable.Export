@@ -26,7 +26,7 @@
      */
     class MigrationEndToEnd : NServiceBusAcceptanceTest
     {
-        [SetUp]
+        [OneTimeSetUp]
         public async Task Setup()
         {
             var account = CloudStorageAccount.Parse(AzureStoragePersistenceConnectionString);
@@ -40,15 +40,16 @@
             Directory.CreateDirectory(workingDir);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public async Task Teardown()
         {
             await table.DeleteIfExistsAsync();
             Directory.Delete(workingDir, true);
         }
 
-        [Test]
-        public async Task Can_migrate_from_ASP_to_CosmosDB()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task Can_migrate_from_ASP_to_CosmosDB(bool usePessimisticLocking)
         {
             // Arrange
             var testContext = await Scenario.Define<Context>(c => c.MyId = Guid.NewGuid())
@@ -81,6 +82,11 @@
                     persistence.CosmosClient(CosmosClient);
                     persistence.DatabaseName(DatabaseName);
                     persistence.DefaultContainer(ContainerName, PartitionPathKey);
+
+                    if (usePessimisticLocking)
+                    {
+                        persistence.Sagas().UsePessimisticLocking();
+                    }
                 }))
                 .Done(ctx => ctx.CompleteSagaResponseReceived)
                 .Run();

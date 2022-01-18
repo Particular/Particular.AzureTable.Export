@@ -49,7 +49,9 @@
         }
 
         [Test]
-        public async Task Can_migrate_from_ASP_to_CosmosDB()
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task Can_migrate_from_ASP_to_CosmosDB(bool usePessimisticLocking)
         {
             // Arrange
             var testContext = await Scenario.Define<Context>(c => c.MyId = Guid.NewGuid())
@@ -84,7 +86,12 @@
                     persistence.CosmosClient(CosmosClient);
                     persistence.DatabaseName(DatabaseName);
                     persistence.DefaultContainer(ContainerName, PartitionPathKey);
-                    persistence.EnableMigrationMode();
+                    var sagas = persistence.Sagas();
+                    sagas.EnableMigrationMode();
+                    if (usePessimisticLocking)
+                    {
+                        sagas.UsePessimisticLocking();
+                    }
                 }))
                 .WithEndpoint<SomeOtherEndpoint>()
                 .Done(ctx => ctx.CompleteSagaResponseReceived)

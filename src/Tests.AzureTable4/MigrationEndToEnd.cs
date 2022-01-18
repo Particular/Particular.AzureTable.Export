@@ -26,7 +26,7 @@
      */
     class MigrationEndToEnd : NServiceBusAcceptanceTest
     {
-        [SetUp]
+        [OneTimeSetUp]
         public async Task Setup()
         {
             var account = CloudStorageAccount.Parse(AzureStoragePersistenceConnectionString);
@@ -40,7 +40,7 @@
             Directory.CreateDirectory(workingDir);
         }
 
-        [TearDown]
+        [OneTimeTearDown]
         public async Task Teardown()
         {
             await table.DeleteIfExistsAsync();

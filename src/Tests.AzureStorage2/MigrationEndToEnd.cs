@@ -48,7 +48,6 @@
             Directory.Delete(workingDir, true);
         }
 
-        [Test]
         [TestCase(false)]
         [TestCase(true)]
         public async Task Can_migrate_from_ASP_to_CosmosDB(bool usePessimisticLocking)

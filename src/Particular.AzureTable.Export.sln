@@ -1,15 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30114.105
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Particular.AzureTable.Export", "Particular.AzureTable.Export\Particular.AzureTable.Export.csproj", "{5ACAB211-F966-48DC-B436-FED2A4EBEC38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AzureStorage2", "Tests.AzureStorage2\Tests.AzureStorage2.csproj", "{1BB66E2F-0BCF-4A0C-B2B0-556874A1A5AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.AzureStorage2", "Tests.AzureStorage2\Tests.AzureStorage2.csproj", "{1BB66E2F-0BCF-4A0C-B2B0-556874A1A5AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AzureTable3", "Tests.AzureTable3\Tests.AzureTable3.csproj", "{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.AzureTable3", "Tests.AzureTable3\Tests.AzureTable3.csproj", "{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.AzureTable4", "Tests.AzureTable4\Tests.AzureTable4.csproj", "{B13F84C4-20EA-4933-A5EA-06C0F2482420}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.AzureTable4", "Tests.AzureTable4\Tests.AzureTable4.csproj", "{B13F84C4-20EA-4933-A5EA-06C0F2482420}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F7389D6E-6116-4407-A974-092948E6C59D}"
+	ProjectSection(SolutionItems) = preProject
+		Custom.Build.props = Custom.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,18 +62,6 @@ Global
 		{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}.Release|x64.Build.0 = Release|Any CPU
 		{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}.Release|x86.ActiveCfg = Release|Any CPU
 		{4D88A75D-6017-43EC-ADF2-E194B9F37BE3}.Release|x86.Build.0 = Release|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x64.Build.0 = Debug|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Debug|x86.Build.0 = Debug|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x64.ActiveCfg = Release|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x64.Build.0 = Release|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x86.ActiveCfg = Release|Any CPU
-		{D18D694B-7CA5-4751-99BF-74209BA0EF0F}.Release|x86.Build.0 = Release|Any CPU
 		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B13F84C4-20EA-4933-A5EA-06C0F2482420}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -84,8 +77,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5544969A-33E8-4395-AACB-816483381D8A}

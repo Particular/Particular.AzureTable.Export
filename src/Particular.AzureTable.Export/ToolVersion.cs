@@ -2,6 +2,7 @@
 {
     using System;
     using System.Linq;
+    using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Logging;
@@ -17,9 +18,22 @@
         const string PackageID = "Particular.AzureTable.Export";
         const string FeedUri = "https://api.nuget.org/v3/index.json";
 
+        static readonly string version;
+        static readonly string shortSha;
+
+        static ToolVersion()
+        {
+            var informationalVersion = Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+
+            var result = informationalVersion.Split("+");
+
+            version = result[0];
+            shortSha = result[1][..7];
+        }
+
         public static string GetVersionInfo()
         {
-            return $"Particular.AzureTable.Export {GitVersionInformation.NuGetVersionV2} (Sha:{GitVersionInformation.ShortSha})";
+            return $"Particular.AzureTable.Export {version} (Sha:{shortSha})";
         }
 
         public static async Task<bool> CheckIsLatestVersion(ILogger logger, bool ignoreUpdates, CancellationToken cancellationToken = default)
@@ -35,7 +49,7 @@
                 var resource = await repository.GetResourceAsync<FindPackageByIdResource>(cancellationToken).ConfigureAwait(false);
                 var versions = await resource.GetAllVersionsAsync(PackageID, cache, nugetLogger, cancellationToken).ConfigureAwait(false);
 
-                var current = new NuGetVersion(GitVersionInformation.NuGetVersionV2);
+                var current = new NuGetVersion(version);
                 var latest = versions.OrderByDescending(pkg => pkg.Version).FirstOrDefault() ?? current;
 
                 if (latest > current)

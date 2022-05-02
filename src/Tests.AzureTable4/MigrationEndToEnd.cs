@@ -196,8 +196,9 @@
 
                 protected override void ConfigureHowToFindSaga(SagaPropertyMapper<MigratingFromAzureTable4SagaData> mapper)
                 {
-                    mapper.ConfigureMapping<StartSaga>(msg => msg.MyId).ToSaga(saga => saga.MyId);
-                    mapper.ConfigureMapping<CompleteSagaRequest>(msg => msg.MyId).ToSaga(saga => saga.MyId);
+                    mapper.MapSaga(saga => saga.MyId)
+                        .ToMessage<StartSaga>(msg => msg.MyId)
+                        .ToMessage<CompleteSagaRequest>(msg => msg.MyId);
                 }
 
                 readonly Context testContext;

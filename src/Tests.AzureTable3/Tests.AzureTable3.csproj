@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="GitHubActionsTestLogger" Version="1.3.0" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.26.1" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.27.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="3.1.0" />
     <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="1.1.0" />

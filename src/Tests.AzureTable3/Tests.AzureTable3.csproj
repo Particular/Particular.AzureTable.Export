@@ -17,11 +17,11 @@
     <PackageReference Include="GitHubActionsTestLogger" Version="2.0.1" />
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.31.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="3.1.0" />
-    <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="1.1.0" />
+    <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="3.2.0" />
+    <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="1.2.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="Nunit" Version="3.13.3" />
-    <PackageReference Include="NServiceBus.AcceptanceTesting" Version="7.6.0" />
+    <PackageReference Include="NServiceBus.AcceptanceTesting" Version="7.8.0" />
     <PackageReference Include="Particular.Approvals" Version="0.3.0" />
   </ItemGroup>
 

@@ -7,7 +7,12 @@
 
     public class BaseEndpoint : IEndpointSetupTemplate
     {
-        public virtual Task<EndpointConfiguration> GetConfiguration(RunDescriptor runDescriptor, EndpointCustomizationConfiguration endpointCustomizationConfiguration, Action<EndpointConfiguration> configurationBuilderCustomization)
+        public virtual async Task<EndpointConfiguration> GetConfiguration(
+            RunDescriptor runDescriptor,
+            EndpointCustomizationConfiguration endpointCustomizationConfiguration,
+#pragma warning disable PS0013 // Add a CancellationToken parameter type argument
+            Func<EndpointConfiguration, Task> configurationBuilderCustomization)
+#pragma warning restore PS0013
         {
             var endpointConfiguration = new EndpointConfiguration(endpointCustomizationConfiguration.EndpointName);
 
@@ -19,9 +24,9 @@
 
             endpointConfiguration.RegisterComponentsAndInheritanceHierarchy(runDescriptor);
 
-            configurationBuilderCustomization(endpointConfiguration);
+            await configurationBuilderCustomization(endpointConfiguration);
 
-            return Task.FromResult(endpointConfiguration);
+            return endpointConfiguration;
         }
     }
 }

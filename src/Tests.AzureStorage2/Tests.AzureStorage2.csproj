@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <!-- Test is only run on the latest .NET version. See test code for details. -->
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Test.snk</AssemblyOriginatorKeyFile>

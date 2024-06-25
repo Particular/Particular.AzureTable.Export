@@ -57,9 +57,10 @@ jobs:
           azure-credentials: ${{ secrets.AZURE_ACI_CREDENTIALS }}
           tag: AspExport
       - name: Setup Azure Storage
-        uses: Particular/setup-azurestorage-action@v1.2.1
+        uses: Particular/setup-azurestorage-action@v2.0.0
         with:
           connection-string-name: AzureStoragePersistence_ConnectionString
+          azure-credentials: ${{ secrets.AZURE_ACI_CREDENTIALS }}
           tag: AspExport
       - name: Run tests
         uses: Particular/run-tests-action@v1.7.0

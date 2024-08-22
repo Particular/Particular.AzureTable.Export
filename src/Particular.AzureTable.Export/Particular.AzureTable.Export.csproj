@@ -26,4 +26,8 @@
     <PackageReference Include="Particular.Packaging" Version="3.0.0" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Label="Elevated transitive dependencies">
+    <PackageReference Include="System.Formats.Asn1" Version="6.0.1" />
+  </ItemGroup>
+
 </Project>

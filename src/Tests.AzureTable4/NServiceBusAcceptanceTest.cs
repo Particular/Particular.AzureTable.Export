@@ -74,6 +74,7 @@
         public async Task OneTimeTearDown()
         {
             await Container.DeleteContainerAsync();
+            CosmosClient.Dispose();
         }
 
         static string GetEnvironmentVariable(string variable, string fallbackEmulatorConnectionString)

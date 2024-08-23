@@ -174,6 +174,9 @@
                             jObject.Add(key, value.StringValue);
                         }
                         break;
+                    case EdmType.String:
+                        jObject.Add(key, value.StringValue);
+                        break;
                     case EdmType.Binary:
                         jObject.Add(key, value.BinaryValue);
                         break;

@@ -107,7 +107,7 @@
 
             var filePath = Path.Combine(workingDir, nameof(MigratingEndpoint.MigratingFromAzureTable3SagaData), $"{newId}.json");
 
-            Assert.IsTrue(File.Exists(filePath), "File exported");
+            Assert.That(File.Exists(filePath), Is.True, "File exported");
             return filePath;
         }
 
@@ -121,7 +121,7 @@
             {
                 var response = await container.CreateItemStreamAsync(stream, new PartitionKey(partitionKey));
 
-                Assert.IsTrue(response.IsSuccessStatusCode, "Successfully imported");
+                Assert.That(response.IsSuccessStatusCode, Is.True, "Successfully imported");
             }
         }
 

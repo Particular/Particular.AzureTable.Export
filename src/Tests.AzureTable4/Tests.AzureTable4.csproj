@@ -7,6 +7,9 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Test.snk</AssemblyOriginatorKeyFile>
     <RootNamespace>Tests.AzureTable4</RootNamespace>
+    <!-- Suppress NU1608 warning for NServiceBus.AcceptanceTesting, newer versions reference NUnit4 but
+we can't update the library because the tests here need to reference an older version of NServiceBus -->
+    <NoWarn>$(NoWarn);NU1608</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,15 +21,15 @@
     <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.40.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-    <PackageReference Include="Nunit" Version="3.14.0" />
+    <PackageReference Include="Nunit" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="4.3.0" />
-    <PackageReference Include="NServiceBus.AcceptanceTesting" Version="8.0.0" />
     <PackageReference Include="Particular.Approvals" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup Label="Dependencies that should be kept at the specific versions">
-    <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="4.0.0" />
-    <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="2.0.0" />
+    <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="4.0.1" />
+    <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="2.0.1" />
+    <PackageReference Include="NServiceBus.AcceptanceTesting" Version="8.2.3" />
   </ItemGroup>
 
   <ItemGroup>

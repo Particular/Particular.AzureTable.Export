@@ -20,10 +20,6 @@ we can't update the library because the tests here need to reference an older ve
     <PackageReference Include="NUnit" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="4.5.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.40.0" />
     <PackageReference Include="Particular.Approvals" Version="1.1.1" />
   </ItemGroup>
 
@@ -31,6 +27,10 @@ we can't update the library because the tests here need to reference an older ve
     <PackageReference Include="NServiceBus.AcceptanceTesting" Version="7.8.6" />
     <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="3.2.2" />
     <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="1.2.2" />
+  </ItemGroup>
+
+  <ItemGroup Label="Direct references to transitive dependencies to avoid versions with CVE">
+    <PackageReference Include="System.Drawing.Common" Version="4.7.3" />
   </ItemGroup>
 
   <ItemGroup>

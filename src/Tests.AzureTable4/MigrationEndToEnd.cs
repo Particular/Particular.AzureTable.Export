@@ -17,8 +17,8 @@
 
     /*
      *  The test creates saga data in Azure Storage, then exports to a file in a working directory using the tool,
-     *  then imports those files into Cosmos DB, then verifies that the data arrived correctly. The test is only
-     *  run on the latest version of .NET because otherwise the Arrange step (setting up the data in Azure Storage)
+     *  then imports those files into Cosmos DB, then verifies that the data arrived correctly. The test project should
+     *  not be multi-targeted otherwise the Arrange step (setting up the data in Azure Storage)
      *  would be repeated for each test run. The first test run would succeed, and then attempt to delete the source
      *  table asynchronously. The second test run would likely not be able to create the table, because the delete
      *  would not have finished yet. We also can't orchestrate one run to set up the data, since constructs like
@@ -154,8 +154,8 @@
                 {
                     Data.MyId = message.MyId;
 
-                    Data.ListOfStrings = new List<string> { "Hello World" };
-                    Data.ListOfINts = new List<int> { 43, 42 };
+                    Data.ListOfStrings = ["Hello World"];
+                    Data.ListOfINts = [43, 42];
                     Data.Nested = new Nested();
                     Data.IntValue = 1;
                     Data.LongValue = 1;

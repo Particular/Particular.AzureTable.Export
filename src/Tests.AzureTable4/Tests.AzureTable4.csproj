@@ -1,39 +1,45 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- Test is only run on the latest .NET version. See test code for details. -->
-    <TargetFramework>net7.0</TargetFramework>
-    <IsPackable>false</IsPackable>
+    <!-- Test project should not be multi-targeted. See test code for details. -->
+    <TargetFramework>net8.0</TargetFramework>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\Test.snk</AssemblyOriginatorKeyFile>
-    <RootNamespace>Tests.AzureTable4</RootNamespace>
     <!-- Suppress NU1608 warning for NServiceBus.AcceptanceTesting, newer versions reference NUnit4 but
 we can't update the library because the tests here need to reference an older version of NServiceBus -->
     <NoWarn>$(NoWarn);NU1608</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Particular.AzureTable.Export\CosmosSagaIdGenerator.cs" Link="CosmosSagaIdGenerator.cs" />
+    <ProjectReference Include="..\Particular.AzureTable.Export\Particular.AzureTable.Export.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="GitHubActionsTestLogger" Version="2.4.1" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.40.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="NUnit" Version="4.3.2" />
+    <PackageReference Include="NUnit.Analyzers" Version="4.6.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
-    <PackageReference Include="NUnit" Version="4.2.1" />
-    <PackageReference Include="NUnit.Analyzers" Version="4.3.0" />
-    <PackageReference Include="Particular.Approvals" Version="1.0.0" />
+    <PackageReference Include="Particular.Approvals" Version="2.0.0" />
   </ItemGroup>
 
-  <ItemGroup Label="Dependencies that should be kept at the specific versions">
+  <ItemGroup Label="These dependencies must reference NServiceBus 8 versionss">
+    <PackageReference Include="NServiceBus.AcceptanceTesting" Version="8.2.4" />
     <PackageReference Include="NServiceBus.Persistence.AzureTable" Version="4.0.1" />
     <PackageReference Include="NServiceBus.Persistence.CosmosDB" Version="2.0.1" />
-    <PackageReference Include="NServiceBus.AcceptanceTesting" Version="8.2.3" />
+  </ItemGroup>
+
+  <ItemGroup Label="Direct references to transitive dependencies to avoid versions with CVE">
+    <PackageReference Include="System.Drawing.Common" Version="4.7.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Particular.AzureTable.Export\Particular.AzureTable.Export.csproj" />
+    <Compile Include="..\Particular.AzureTable.Export\CosmosSagaIdGenerator.cs" />
+  </ItemGroup>
+
+  <!-- Workaround to avoid NETSDK1206 warning from deprecated Cosmos packages -->
+  <ItemGroup>
+    <RuntimeHostConfigurationOption Include="System.Runtime.Loader.UseRidGraph" Value="true" />
   </ItemGroup>
 
 </Project>

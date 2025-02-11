@@ -1,0 +1,5 @@
+ignore:
+  # Microsoft.Azure.Cosmos.Table is deprecated as it is legacy and is no longer maintained.
+  # See https://github.com/Particular/Particular.AzureTable.Export/issues/394
+  - test: ShouldNotReferenceDeprecatedPackages
+    path: src/Particular.AzureTable.Export/Particular.AzureTable.Export.csproj

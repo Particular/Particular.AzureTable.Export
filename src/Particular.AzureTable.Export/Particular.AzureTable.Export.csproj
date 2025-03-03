@@ -13,6 +13,7 @@
     <ToolCommandName>particular-azuretable-export</ToolCommandName>
     <PackAsTool>True</PackAsTool>
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
 
   <ItemGroup>

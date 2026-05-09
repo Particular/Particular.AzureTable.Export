@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Elevate runtime transitive dependency">
-    <PackageReference Include="System.Formats.Asn1" Version="6.0.1" />
+    <PackageReference Include="System.Formats.Asn1" Version="8.0.2" />
   </ItemGroup>
 
 </Project>
